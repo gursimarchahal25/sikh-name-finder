@@ -1,6 +1,6 @@
 function Namecard({ name, meaning }) {
     return (
-        <div classname="namecard">
+        <div className="namecard">
         <h2>{name}</h2>
         <p>{meaning}</p>
         </div>

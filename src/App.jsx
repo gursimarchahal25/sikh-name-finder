@@ -1,18 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Searchbar from './components/Searchbar.jsx';
 import Letterfilter from './components/Letterfilter.jsx';
 import Namelist from './components/Namelist.jsx';
 import './App.css';
-
-const samplenames = [
-  { name: "Gursimar", meaning: "Remembrance of Guru" },
-  { name: "Sumit", meaning: "True friend" },
-  { name : "Joban", meaning: "Youthful" }
-];
+import { supabase } from './libs/supabase.js';
 
 
 function App() {
   const [searchText, setSearchText] = useState("");
+  const [names, setNames] = useState([]);
+  
+  useEffect(() => {
+async function fetchNames() {
+  const { data, error } = await supabase
+    .from('names')
+    .select('*')
+    .order('name');
+
+    if (error) {
+      console.error('Failed to load names:', error);
+    } else {
+      setNames(data);
+}
+}
+    fetchNames();
+}, []);
+
 
   return (
     <main>
@@ -21,10 +34,11 @@ function App() {
     
     <Searchbar value={searchText} onChange={setSearchText} />
     <Letterfilter />
-    <Namelist names={samplenames} />
+    <Namelist names={names} />
     </main>
   );
     
 }
 export default App;
+
 

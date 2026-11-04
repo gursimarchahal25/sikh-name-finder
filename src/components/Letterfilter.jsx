@@ -1,7 +1,7 @@
 const letter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
 function Letterfilter() {
     return (
-        <div classname="letterfilter">
+        <div className="letterfilter">
             {letter.map((l) => (
                 <button key={l}>{l}</button>
             ))}
